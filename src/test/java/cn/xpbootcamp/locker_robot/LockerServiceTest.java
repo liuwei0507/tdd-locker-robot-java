@@ -34,7 +34,6 @@ public class LockerServiceTest {
         Assertions.assertEquals(ticket, null);
     }
 
-
     @Test
     public void should_return_used_locker_number_1_4_when_store_package_given_ticket_locker_number_4() {
         // given
@@ -49,6 +48,25 @@ public class LockerServiceTest {
 
         // then
         Assertions.assertEquals(usedLockers.get(3), 4);
+    }
+
+    @Test
+    public void should_release_locker_4_when_get_package_given_ticket_info() {
+        // given
+        List usedLockers = new ArrayList();
+        usedLockers.add(1);
+        usedLockers.add(2);
+        usedLockers.add(3);
+        usedLockers.add(4);
+        Ticket ticket = new Ticket(4);
+
+
+        // when
+        usedLockers = lockerService.getPackage(usedLockers, ticket);
+
+        // then
+        Assertions.assertEquals(usedLockers.size(), 3);
+        Assertions.assertEquals(usedLockers.contains(4), false);
     }
 
 }

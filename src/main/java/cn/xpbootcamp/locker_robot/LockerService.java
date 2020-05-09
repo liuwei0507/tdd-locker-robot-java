@@ -22,4 +22,8 @@ public class LockerService {
     }
 
 
+    public List getPackage(List usedLockers, Ticket ticket) {
+        usedLockers.remove(ticket.getLockerNumber());
+        return usedLockers;
+    }
 }

@@ -15,8 +15,4 @@ Given locker的所有位置信息[1~9]，已经存包的位置[1~9] When 获取t
 Given ticket(lockerNumber 4) When 存包 Then 已存包位置更新为[1~4]
 
 取包
-1. 存在包
-Given lockerNumber（ticket 信息）When 取包 Then 返回包裹, 释放位置4，以存包位置更新为[1~3]
-
-2. 不存在包
 Given lockerNumber（ticket 信息）When 取包 Then 返回包裹, 释放位置4，以存包位置更新为[1~3]
