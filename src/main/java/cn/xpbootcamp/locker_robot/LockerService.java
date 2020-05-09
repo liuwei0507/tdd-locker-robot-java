@@ -15,4 +15,9 @@ public class LockerService {
         }
         return null;
     }
+
+    public List storePackage(List<Integer> usedLockers, Ticket ticket) {
+        usedLockers.add(ticket.getLockerNumber());
+        return usedLockers;
+    }
 }
