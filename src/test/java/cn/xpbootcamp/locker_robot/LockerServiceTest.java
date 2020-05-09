@@ -23,6 +23,19 @@ public class LockerServiceTest {
     }
 
     @Test
+    public void should_return_null_when_get_ticket_given_already_used_locker_1_9() {
+        // given
+        List usedLockers = Arrays.asList(1,2,3,4,5,6,7,8,9);
+
+        // when
+        Ticket ticket = lockerService.getTicket(usedLockers);
+
+        // then
+        Assertions.assertEquals(ticket, null);
+    }
+
+
+    @Test
     public void should_return_used_locker_number_1_4_when_store_package_given_ticket_locker_number_4() {
         // given
         List usedLockers = new ArrayList();

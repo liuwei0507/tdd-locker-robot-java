@@ -20,4 +20,6 @@ public class LockerService {
         usedLockers.add(ticket.getLockerNumber());
         return usedLockers;
     }
+
+
 }
