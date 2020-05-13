@@ -40,4 +40,14 @@ public class LockerService {
     }
     return new Ticket(index);
   }
+
+  public ResultDto<Bag> take(Ticket ticket) {
+    String lockerIndex = ticket.getLockerNumber() + "";
+    Bag bag = null;
+    if (storeMap.containsKey(lockerIndex)) {
+      bag = (Bag) storeMap.get(lockerIndex);
+      storeMap.put(lockerIndex, null);
+    }
+    return new ResultDto<>(bag, CommonConstant.TAKE_SUCCESS_MESSAGE);
+  }
 }

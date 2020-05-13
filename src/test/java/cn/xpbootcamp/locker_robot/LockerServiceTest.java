@@ -26,4 +26,14 @@ class LockerServiceTest {
     Assertions.assertEquals(result.getMessage(), CommonConstant.STORE_FAILED_MESSAGE);
   }
 
+  @Test
+  void should_return_bag_when_take_bag_given_ticket() {
+    Bag bag = new Bag();
+    LockerService lockerService = new LockerService(2);
+    ResultDto<Ticket> result = lockerService.store(bag);
+
+    ResultDto<Bag> takeResult = lockerService.take(result.getData());
+    Assertions.assertNotNull(takeResult.getData());
+    Assertions.assertEquals(takeResult.getMessage(), CommonConstant.TAKE_SUCCESS_MESSAGE);
+  }
 }
