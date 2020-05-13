@@ -1,72 +1,19 @@
 package cn.xpbootcamp.locker_robot;
 
+import cn.xpbootcamp.locker_robot.model.Bag;
+import cn.xpbootcamp.locker_robot.model.CommonConstant;
+import cn.xpbootcamp.locker_robot.model.ResultDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+class LockerServiceTest {
 
-public class LockerServiceTest {
-    LockerService lockerService = new LockerService();
-
-    @Test
-    public void should_return_ticket_with_locker_number_4_when_get_ticket_given_already_used_locker_number_1_3() {
-        // given
-        List usedLockers = Arrays.asList(1,2,3);
-
-        // when
-        Ticket ticket = lockerService.getTicket(usedLockers);
-
-        // then
-        Assertions.assertEquals(ticket.getLockerNumber().intValue(), 4);
-    }
-
-    @Test
-    public void should_return_null_when_get_ticket_given_already_used_locker_1_9() {
-        // given
-        List usedLockers = Arrays.asList(1,2,3,4,5,6,7,8,9);
-
-        // when
-        Ticket ticket = lockerService.getTicket(usedLockers);
-
-        // then
-        Assertions.assertEquals(ticket, null);
-    }
-
-    @Test
-    public void should_return_used_locker_number_1_4_when_store_package_given_ticket_locker_number_4() {
-        // given
-        List usedLockers = new ArrayList();
-        usedLockers.add(1);
-        usedLockers.add(2);
-        usedLockers.add(3);
-        Ticket ticket = new Ticket(4);
-
-        // when
-        usedLockers = lockerService.storePackage(usedLockers, ticket);
-
-        // then
-        Assertions.assertEquals(usedLockers.get(3), 4);
-    }
-
-    @Test
-    public void should_release_locker_4_when_get_package_given_ticket_info() {
-        // given
-        List usedLockers = new ArrayList();
-        usedLockers.add(1);
-        usedLockers.add(2);
-        usedLockers.add(3);
-        usedLockers.add(4);
-        Ticket ticket = new Ticket(4);
-
-
-        // when
-        usedLockers = lockerService.getPackage(usedLockers, ticket);
-
-        // then
-        Assertions.assertEquals(usedLockers.size(), 3);
-        Assertions.assertEquals(usedLockers.contains(4), false);
-    }
-
+  @Test
+  void should_return_ticket_when_store_bag_given_available_space_and_bag() {
+    Bag bag = new Bag();
+    LockerService lockerService = new LockerService(3);
+    ResultDto<Ticket> result = lockerService.store(bag);
+    Assertions.assertNotNull(result.getData());
+    Assertions.assertEquals(result.getMessage(), CommonConstant.STORE_SUCCESS_MESSAGE);
+  }
 }

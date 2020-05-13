@@ -1,29 +1,36 @@
 package cn.xpbootcamp.locker_robot;
 
-import java.util.Arrays;
-import java.util.List;
+import cn.xpbootcamp.locker_robot.model.Bag;
+import cn.xpbootcamp.locker_robot.model.CommonConstant;
+import cn.xpbootcamp.locker_robot.model.ResultDto;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LockerService {
-    public static final List LOCKERS = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
 
-    public Ticket getTicket(List usedLockers) {
-        for (int i = 0; i < LOCKERS.size(); i++) {
-            Integer locker = (Integer) LOCKERS.get(i);
-            if (!usedLockers.contains(locker)) {
-                return new Ticket(locker);
-            }
-        }
-        return null;
+  private Map<String, Object> storeMap;
+  private int number;
+
+  public LockerService(int number) {
+    this.number = number;
+    this.storeMap = new HashMap<>(number);
+  }
+
+
+  public ResultDto<Ticket> store(Bag bag) {
+    Ticket ticket = getTicket();
+    storeMap.put(ticket.getLockerNumber().toString(), bag);
+    return new ResultDto<>(ticket, CommonConstant.STORE_SUCCESS_MESSAGE);
+  }
+
+  private Ticket getTicket() {
+    int index = 0;
+    for (int i = 0; i < number; i++) {
+      if (storeMap.get(i) == null) {
+        index = i;
+        break;
+      }
     }
-
-    public List storePackage(List<Integer> usedLockers, Ticket ticket) {
-        usedLockers.add(ticket.getLockerNumber());
-        return usedLockers;
-    }
-
-
-    public List getPackage(List usedLockers, Ticket ticket) {
-        usedLockers.remove(ticket.getLockerNumber());
-        return usedLockers;
-    }
+    return new Ticket(index);
+  }
 }
