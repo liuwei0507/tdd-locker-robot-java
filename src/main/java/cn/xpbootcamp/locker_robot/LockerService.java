@@ -19,11 +19,18 @@ public class LockerService {
 
   public ResultDto<Ticket> store(Bag bag) {
     Ticket ticket = getTicket();
+    if (ticket == null) {
+      return new ResultDto<>(null, CommonConstant.STORE_FAILED_MESSAGE);
+    }
     storeMap.put(ticket.getLockerNumber().toString(), bag);
     return new ResultDto<>(ticket, CommonConstant.STORE_SUCCESS_MESSAGE);
   }
 
   private Ticket getTicket() {
+    if (storeMap.size() == number) {
+      return null;
+    }
+
     int index = 0;
     for (int i = 0; i < number; i++) {
       if (storeMap.get(i) == null) {

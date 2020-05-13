@@ -16,4 +16,14 @@ class LockerServiceTest {
     Assertions.assertNotNull(result.getData());
     Assertions.assertEquals(result.getMessage(), CommonConstant.STORE_SUCCESS_MESSAGE);
   }
+
+  @Test
+  void should_failed_when_store_bag_given_no_space_and_bag() {
+    Bag bag = new Bag();
+    LockerService lockerService = new LockerService(0);
+    ResultDto<Ticket> result = lockerService.store(bag);
+    Assertions.assertNull(result.getData());
+    Assertions.assertEquals(result.getMessage(), CommonConstant.STORE_FAILED_MESSAGE);
+  }
+
 }
