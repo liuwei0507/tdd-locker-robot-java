@@ -37,6 +37,18 @@ class LockerServiceTest {
 
     ResultDto<Bag> takeResult = lockerService.take(result.getData());
     assertNotNull(takeResult.getData());
+    assertEquals(takeResult.getData(), bag);
     assertEquals(takeResult.getMessage(), CommonConstant.TAKE_SUCCESS_MESSAGE);
+  }
+
+
+  @Test
+  void should_failed_when_take_bag_given_invalid_ticket() {
+    LockerService lockerService = new LockerService(2);
+    Ticket invalidTicket = new Ticket(10);
+
+    ResultDto<Bag> takeResult = lockerService.take(invalidTicket);
+    assertNull(takeResult.getData());
+    assertEquals(takeResult.getMessage(), CommonConstant.INVALID_TICKET);
   }
 }

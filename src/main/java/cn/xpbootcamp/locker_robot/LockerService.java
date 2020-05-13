@@ -43,11 +43,13 @@ public class LockerService {
 
   public ResultDto<Bag> take(Ticket ticket) {
     String lockerIndex = ticket.getLockerNumber() + "";
-    Bag bag = null;
-    if (storeMap.containsKey(lockerIndex)) {
-      bag = (Bag) storeMap.get(lockerIndex);
-      storeMap.put(lockerIndex, null);
+    Bag bag;
+    if (!storeMap.containsKey(lockerIndex)) {
+      return new ResultDto<>(null, CommonConstant.INVALID_TICKET);
     }
+
+    bag = (Bag) storeMap.get(lockerIndex);
+    storeMap.put(lockerIndex, null);
     return new ResultDto<>(bag, CommonConstant.TAKE_SUCCESS_MESSAGE);
   }
 }
