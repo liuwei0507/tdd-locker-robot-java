@@ -1,11 +1,14 @@
 package cn.xpbootcamp.locker_robot;
 
+import static cn.xpbootcamp.locker_robot.commom.CommonConstant.INVALID_TICKET;
+import static cn.xpbootcamp.locker_robot.commom.CommonConstant.LOCKER_FULL;
+import static cn.xpbootcamp.locker_robot.commom.CommonConstant.STORE_SUCCESS_MESSAGE;
+import static cn.xpbootcamp.locker_robot.commom.CommonConstant.TAKE_SUCCESS_MESSAGE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import cn.xpbootcamp.locker_robot.model.Bag;
-import cn.xpbootcamp.locker_robot.model.CommonConstant;
 import cn.xpbootcamp.locker_robot.model.ResultDto;
 import cn.xpbootcamp.locker_robot.model.Ticket;
 import org.junit.jupiter.api.Test;
@@ -18,7 +21,7 @@ class LockerServiceTest {
     LockerService lockerService = new LockerService(3);
     ResultDto<Ticket> result = lockerService.store(bag);
     assertNotNull(result.getData());
-    assertEquals(result.getMessage(), CommonConstant.STORE_SUCCESS_MESSAGE);
+    assertEquals(result.getMessage(), STORE_SUCCESS_MESSAGE);
   }
 
   @Test
@@ -27,7 +30,7 @@ class LockerServiceTest {
     LockerService lockerService = new LockerService(0);
     ResultDto<Ticket> result = lockerService.store(bag);
     assertNull(result.getData());
-    assertEquals(result.getMessage(), CommonConstant.STORE_FAILED_MESSAGE);
+    assertEquals(result.getMessage(), LOCKER_FULL);
   }
 
   @Test
@@ -39,7 +42,7 @@ class LockerServiceTest {
     ResultDto<Bag> takeResult = lockerService.take(result.getData());
     assertNotNull(takeResult.getData());
     assertEquals(takeResult.getData(), bag);
-    assertEquals(takeResult.getMessage(), CommonConstant.TAKE_SUCCESS_MESSAGE);
+    assertEquals(takeResult.getMessage(), TAKE_SUCCESS_MESSAGE);
   }
 
 
@@ -50,6 +53,6 @@ class LockerServiceTest {
 
     ResultDto<Bag> takeResult = lockerService.take(invalidTicket);
     assertNull(takeResult.getData());
-    assertEquals(takeResult.getMessage(), CommonConstant.INVALID_TICKET);
+    assertEquals(takeResult.getMessage(), INVALID_TICKET);
   }
 }

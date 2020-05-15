@@ -1,7 +1,11 @@
 package cn.xpbootcamp.locker_robot;
 
+import static cn.xpbootcamp.locker_robot.commom.CommonConstant.INVALID_TICKET;
+import static cn.xpbootcamp.locker_robot.commom.CommonConstant.LOCKER_FULL;
+import static cn.xpbootcamp.locker_robot.commom.CommonConstant.STORE_SUCCESS_MESSAGE;
+import static cn.xpbootcamp.locker_robot.commom.CommonConstant.TAKE_SUCCESS_MESSAGE;
+
 import cn.xpbootcamp.locker_robot.model.Bag;
-import cn.xpbootcamp.locker_robot.model.CommonConstant;
 import cn.xpbootcamp.locker_robot.model.ResultDto;
 import cn.xpbootcamp.locker_robot.model.Ticket;
 import java.util.HashMap;
@@ -21,10 +25,10 @@ public class LockerService {
   public ResultDto<Ticket> store(Bag bag) {
     Ticket ticket = getTicket();
     if (ticket == null) {
-      return new ResultDto<>(null, CommonConstant.STORE_FAILED_MESSAGE);
+      return new ResultDto<>(null, LOCKER_FULL);
     }
     storeMap.put(ticket.getLockerNumber().toString(), bag);
-    return new ResultDto<>(ticket, CommonConstant.STORE_SUCCESS_MESSAGE);
+    return new ResultDto<>(ticket, STORE_SUCCESS_MESSAGE);
   }
 
   private Ticket getTicket() {
@@ -46,11 +50,11 @@ public class LockerService {
     String lockerIndex = ticket.getLockerNumber() + "";
     Bag bag;
     if (!storeMap.containsKey(lockerIndex)) {
-      return new ResultDto<>(null, CommonConstant.INVALID_TICKET);
+      return new ResultDto<>(null, INVALID_TICKET);
     }
 
     bag = (Bag) storeMap.get(lockerIndex);
     storeMap.put(lockerIndex, null);
-    return new ResultDto<>(bag, CommonConstant.TAKE_SUCCESS_MESSAGE);
+    return new ResultDto<>(bag, TAKE_SUCCESS_MESSAGE);
   }
 }
