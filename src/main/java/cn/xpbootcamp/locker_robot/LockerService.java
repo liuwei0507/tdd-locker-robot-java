@@ -3,6 +3,7 @@ package cn.xpbootcamp.locker_robot;
 import cn.xpbootcamp.locker_robot.model.Bag;
 import cn.xpbootcamp.locker_robot.model.CommonConstant;
 import cn.xpbootcamp.locker_robot.model.ResultDto;
+import cn.xpbootcamp.locker_robot.model.Ticket;
 import java.util.HashMap;
 import java.util.Map;
 

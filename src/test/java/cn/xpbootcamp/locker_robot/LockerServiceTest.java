@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import cn.xpbootcamp.locker_robot.model.Bag;
 import cn.xpbootcamp.locker_robot.model.CommonConstant;
 import cn.xpbootcamp.locker_robot.model.ResultDto;
+import cn.xpbootcamp.locker_robot.model.Ticket;
 import org.junit.jupiter.api.Test;
 
 class LockerServiceTest {
