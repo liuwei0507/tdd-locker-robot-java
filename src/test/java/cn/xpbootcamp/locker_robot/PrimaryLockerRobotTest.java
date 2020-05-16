@@ -100,6 +100,7 @@ class PrimaryLockerRobotTest {
     Locker firstLocker = new Locker(3, "A1");
     firstLocker.store(new Bag());
     firstLocker.store(new Bag());
+
     Locker secondLocker = new Locker(3, "A2");
     PrimaryLockerRobot robot = new PrimaryLockerRobot();
     robot.setOrderedLocker(Arrays.asList(firstLocker, secondLocker));
@@ -122,6 +123,7 @@ class PrimaryLockerRobotTest {
     firstLocker.store(new Bag());
     firstLocker.store(new Bag());
     firstLocker.store(new Bag());
+
     Locker secondLocker = new Locker(3, "A2");
     PrimaryLockerRobot robot = new PrimaryLockerRobot();
     robot.setOrderedLocker(Arrays.asList(firstLocker, secondLocker));
