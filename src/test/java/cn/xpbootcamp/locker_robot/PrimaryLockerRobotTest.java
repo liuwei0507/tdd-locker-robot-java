@@ -14,7 +14,7 @@ import cn.xpbootcamp.locker_robot.model.Ticket;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
-public class PrimaryLockerRobotTest {
+class PrimaryLockerRobotTest {
 
   @Test
   void should_return_ticket_when_store_bag_given_primary_locker_robot_and_available_space() {
@@ -112,5 +112,27 @@ public class PrimaryLockerRobotTest {
     // Then
     assertNotNull(actual.getData());
     assertEquals(previousUsedCapacity + 1, firstLocker.getUsedCapacity());
+  }
+
+  @Test
+  void should_store_in_second_locker_and_return_ticket_when_store_bag_given_first_locker_not_available_and_second_locker_available() {
+    // Given
+    Bag bag = new Bag();
+    Locker firstLocker = new Locker(3, "A1");
+    firstLocker.store(new Bag());
+    firstLocker.store(new Bag());
+    firstLocker.store(new Bag());
+    Locker secondLocker = new Locker(3, "A2");
+    PrimaryLockerRobot robot = new PrimaryLockerRobot();
+    robot.setOrderedLocker(Arrays.asList(firstLocker, secondLocker));
+
+    int previousUsedCapacity = secondLocker.getUsedCapacity();
+
+    // When
+    ResultDto<Ticket> actual = robot.store(bag);
+
+    // Then
+    assertNotNull(actual.getData());
+    assertEquals(previousUsedCapacity + 1, secondLocker.getUsedCapacity());
   }
 }
