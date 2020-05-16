@@ -3,19 +3,19 @@ package cn.xpbootcamp.locker_robot.model;
 public class Ticket {
 
   private String lockerSerialNumber;
-  private Integer lockerNumber;
+  private Integer number;
 
-  public Ticket(Integer lockerNumber) {
-    this.lockerNumber = lockerNumber;
+  public Ticket(Integer number) {
+    this.number = number;
   }
 
-  public Ticket(String lockerSerialNumber, Integer lockerNumber) {
+  public Ticket(String lockerSerialNumber, Integer number) {
     this.lockerSerialNumber = lockerSerialNumber;
-    this.lockerNumber = lockerNumber;
+    this.number = number;
   }
 
-  public Integer getLockerNumber() {
-    return lockerNumber;
+  public Integer getNumber() {
+    return number;
   }
 
   public String getLockerSerialNumber() {

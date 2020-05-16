@@ -14,19 +14,19 @@ import java.util.Map;
 public class Locker {
 
   private Map<String, Object> storeMap;
-  private int number;
+  private int capacity;
   private String serialNumber;
 
-  public Locker(int number) {
-    this.number = number;
+  public Locker(int capacity) {
+    this.capacity = capacity;
     this.serialNumber = "";
-    this.storeMap = new HashMap<>(number);
+    this.storeMap = new HashMap<>(capacity);
   }
 
-  public Locker(int number, String serialNumber) {
-    this.number = number;
+  public Locker(int capacity, String serialNumber) {
+    this.capacity = capacity;
     this.serialNumber = serialNumber;
-    this.storeMap = new HashMap<>(number);
+    this.storeMap = new HashMap<>(capacity);
   }
 
   public ResultDto<Ticket> store(Bag bag) {
@@ -34,17 +34,17 @@ public class Locker {
     if (ticket == null) {
       return new ResultDto<>(null, LOCKER_FULL);
     }
-    storeMap.put(ticket.getLockerNumber().toString(), bag);
+    storeMap.put(ticket.getNumber().toString(), bag);
     return new ResultDto<>(ticket, STORE_SUCCESS_MESSAGE);
   }
 
   private Ticket getTicket() {
-    if (storeMap.size() == number) {
+    if (storeMap.size() == capacity) {
       return null;
     }
 
     int index = 0;
-    for (int i = 0; i < number; i++) {
+    for (int i = 0; i < capacity; i++) {
       if (storeMap.get(i + "") == null) {
         index = i;
         break;
@@ -54,7 +54,7 @@ public class Locker {
   }
 
   public ResultDto<Bag> take(Ticket ticket) {
-    String lockerIndex = ticket.getLockerNumber() + "";
+    String lockerIndex = ticket.getNumber() + "";
     Bag bag;
     if (!storeMap.containsKey(lockerIndex)) {
       return new ResultDto<>(null, INVALID_TICKET);
@@ -67,7 +67,7 @@ public class Locker {
   }
 
   public boolean isFull() {
-    return storeMap.size() == number;
+    return storeMap.size() == capacity;
   }
 
   public String getSerialNumber() {
