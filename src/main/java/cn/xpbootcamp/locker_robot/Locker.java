@@ -11,12 +11,12 @@ import cn.xpbootcamp.locker_robot.model.Ticket;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LockerService {
+public class Locker {
 
   private Map<String, Object> storeMap;
   private int number;
 
-  public LockerService(int number) {
+  public Locker(int number) {
     this.number = number;
     this.storeMap = new HashMap<>(number);
   }
