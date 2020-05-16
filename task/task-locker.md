@@ -11,3 +11,13 @@
 ### take
 - `Given` valid ticket `When` take bag `Then` take successfully and return bag
 - `Given` invalid ticket `When` take bag `Then` take failed and return message
+
+# primary locker robot
+ - `Given` primary locker robot and available space `When` store bag `Then` store successfully and get a ticket
+ - `Given` primary locker robot and no space `When` `Then` store bag `Then` get a message that locker is full
+
+ - `Given` valid ticket `When` take bag `Then` take successfully and get right bag
+ - `Given` invalid ticket `When` take bag `Then` take failed and get a message that ticket is invalid
+
+ - `Given` primary locker robot with more than one locker and available space in first locker `When` store bag `Then` store in first locker successfully
+ - `Given` primary locker robot with more than one locker and no space in first locker but available in second locker `When` store bag `Then` store in second locker successfully
