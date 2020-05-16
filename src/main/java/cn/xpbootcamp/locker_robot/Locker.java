@@ -15,9 +15,17 @@ public class Locker {
 
   private Map<String, Object> storeMap;
   private int number;
+  private String serialNumber;
 
   public Locker(int number) {
     this.number = number;
+    this.serialNumber = "";
+    this.storeMap = new HashMap<>(number);
+  }
+
+  public Locker(int number, String serialNumber) {
+    this.number = number;
+    this.serialNumber = serialNumber;
     this.storeMap = new HashMap<>(number);
   }
 
@@ -42,7 +50,7 @@ public class Locker {
         break;
       }
     }
-    return new Ticket(index);
+    return new Ticket(this.serialNumber, index);
   }
 
   public ResultDto<Bag> take(Ticket ticket) {
@@ -59,5 +67,9 @@ public class Locker {
 
   public boolean isFull() {
     return storeMap.size() == number;
+  }
+
+  public String getSerialNumber() {
+    return serialNumber;
   }
 }

@@ -1,12 +1,13 @@
 package cn.xpbootcamp.locker_robot;
 
+import static cn.xpbootcamp.locker_robot.commom.CommonConstant.INVALID_TICKET;
 import static cn.xpbootcamp.locker_robot.commom.CommonConstant.LOCKER_FULL;
+import static java.util.Objects.isNull;
 
 import cn.xpbootcamp.locker_robot.model.Bag;
 import cn.xpbootcamp.locker_robot.model.ResultDto;
 import cn.xpbootcamp.locker_robot.model.Ticket;
 import java.util.List;
-import java.util.Objects;
 
 public class PrimaryLockerRobot {
 
@@ -21,10 +22,23 @@ public class PrimaryLockerRobot {
         .filter(locker -> !locker.isFull()).findFirst()
         .orElse(null);
 
-    if (Objects.isNull(targetLocker)) {
+    if (isNull(targetLocker)) {
       return new ResultDto<>(null, LOCKER_FULL);
     }
 
     return targetLocker.store(bag);
+  }
+
+  public ResultDto<Bag> take(Ticket ticket) {
+    Locker targetLocker = orderedLocker.stream()
+        .filter(locker -> locker.getSerialNumber().equals(ticket.getLockerSerialNumber()))
+        .findFirst()
+        .orElse(null);
+
+    if (isNull(targetLocker)) {
+      return new ResultDto<>(null, INVALID_TICKET);
+    }
+
+    return targetLocker.take(ticket);
   }
 }
