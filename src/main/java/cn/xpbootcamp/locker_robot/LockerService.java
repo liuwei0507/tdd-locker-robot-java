@@ -21,7 +21,6 @@ public class LockerService {
     this.storeMap = new HashMap<>(number);
   }
 
-
   public ResultDto<Ticket> store(Bag bag) {
     Ticket ticket = getTicket();
     if (ticket == null) {

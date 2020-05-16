@@ -45,7 +45,6 @@ class LockerServiceTest {
     assertEquals(takeResult.getMessage(), TAKE_SUCCESS_MESSAGE);
   }
 
-
   @Test
   void should_failed_when_take_bag_given_invalid_ticket() {
     LockerService lockerService = new LockerService(2);
