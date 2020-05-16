@@ -56,4 +56,8 @@ public class Locker {
     storeMap.put(lockerIndex, null);
     return new ResultDto<>(bag, TAKE_SUCCESS_MESSAGE);
   }
+
+  public boolean isFull() {
+    return storeMap.size() == number;
+  }
 }
