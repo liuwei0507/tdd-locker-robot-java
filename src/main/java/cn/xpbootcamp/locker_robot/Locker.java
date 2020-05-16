@@ -61,7 +61,8 @@ public class Locker {
     }
 
     bag = (Bag) storeMap.get(lockerIndex);
-    storeMap.put(lockerIndex, null);
+    storeMap.remove(lockerIndex);
+
     return new ResultDto<>(bag, TAKE_SUCCESS_MESSAGE);
   }
 
