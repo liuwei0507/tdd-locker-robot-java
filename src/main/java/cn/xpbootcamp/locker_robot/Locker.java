@@ -45,7 +45,7 @@ public class Locker {
 
     int index = 0;
     for (int i = 0; i < number; i++) {
-      if (storeMap.get(i) == null) {
+      if (storeMap.get(i + "") == null) {
         index = i;
         break;
       }
@@ -72,5 +72,9 @@ public class Locker {
 
   public String getSerialNumber() {
     return serialNumber;
+  }
+
+  public int getUsedCapacity() {
+    return storeMap.size();
   }
 }

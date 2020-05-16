@@ -93,4 +93,24 @@ public class PrimaryLockerRobotTest {
     assertEquals(actual.getMessage(), INVALID_TICKET);
   }
 
+  @Test
+  void should_store_in_first_locker_and_return_ticket_when_store_bag_given_first_locker_available() {
+    // Given
+    Bag bag = new Bag();
+    Locker firstLocker = new Locker(3, "A1");
+    firstLocker.store(new Bag());
+    firstLocker.store(new Bag());
+    Locker secondLocker = new Locker(3, "A2");
+    PrimaryLockerRobot robot = new PrimaryLockerRobot();
+    robot.setOrderedLocker(Arrays.asList(firstLocker, secondLocker));
+
+    int previousUsedCapacity = firstLocker.getUsedCapacity();
+
+    // When
+    ResultDto<Ticket> actual = robot.store(bag);
+
+    // Then
+    assertNotNull(actual.getData());
+    assertEquals(previousUsedCapacity + 1, firstLocker.getUsedCapacity());
+  }
 }
