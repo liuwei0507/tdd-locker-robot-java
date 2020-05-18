@@ -105,14 +105,16 @@ class PrimaryLockerRobotTest {
 
     robot.store(new Bag());
     robot.store(new Bag());
-    int previousUsedCapacity = firstLocker.getUsedCapacity();
 
     // When
-    ResultDto<Ticket> actual = robot.store(bag);
+    ResultDto<Ticket> storeResult = robot.store(bag);
 
     // Then
-    assertNotNull(actual.getData());
-    assertEquals(previousUsedCapacity + 1, firstLocker.getUsedCapacity());
+    ResultDto<Bag> expectedResult = firstLocker.take(storeResult.getData());
+    Bag expectedBag = expectedResult.getData();
+
+    assertNotNull(expectedResult.getData());
+    assertEquals(bag, expectedBag);
   }
 
   @Test
@@ -128,13 +130,15 @@ class PrimaryLockerRobotTest {
     robot.store(new Bag());
     robot.store(new Bag());
     robot.store(new Bag());
-    int previousUsedCapacity = secondLocker.getUsedCapacity();
 
     // When
-    ResultDto<Ticket> actual = robot.store(bag);
+    ResultDto<Ticket> storeResult = robot.store(bag);
 
     // Then
-    assertNotNull(actual.getData());
-    assertEquals(previousUsedCapacity + 1, secondLocker.getUsedCapacity());
+    ResultDto<Bag> expectedResult = secondLocker.take(storeResult.getData());
+    Bag expectedBag = expectedResult.getData();
+
+    assertNotNull(expectedResult.getData());
+    assertEquals(bag, expectedBag);
   }
 }

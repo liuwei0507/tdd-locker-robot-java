@@ -48,12 +48,4 @@ public class Locker {
 
     return new ResultDto<>(bag, TAKE_SUCCESS_MESSAGE);
   }
-
-  public boolean isFull() {
-    return storeMap.size() == capacity;
-  }
-
-  public int getUsedCapacity() {
-    return storeMap.size();
-  }
 }
