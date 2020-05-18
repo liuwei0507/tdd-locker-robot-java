@@ -48,7 +48,7 @@ class LockerTest {
   @Test
   void should_failed_when_take_bag_given_invalid_ticket() {
     Locker locker = new Locker(2);
-    Ticket invalidTicket = new Ticket(10);
+    Ticket invalidTicket = new Ticket();
 
     ResultDto<Bag> takeResult = locker.take(invalidTicket);
     assertNull(takeResult.getData());

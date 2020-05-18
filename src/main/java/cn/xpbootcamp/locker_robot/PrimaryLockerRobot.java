@@ -30,15 +30,10 @@ public class PrimaryLockerRobot {
   }
 
   public ResultDto<Bag> take(Ticket ticket) {
-    Locker targetLocker = orderedLocker.stream()
-        .filter(locker -> locker.getSerialNumber().equals(ticket.getLockerSerialNumber()))
+    return orderedLocker.stream()
+        .map(locker -> locker.take(ticket))
+        .filter(result -> !isNull(result.getData()))
         .findFirst()
-        .orElse(null);
-
-    if (isNull(targetLocker)) {
-      return new ResultDto<>(null, INVALID_TICKET);
-    }
-
-    return targetLocker.take(ticket);
+        .orElse(new ResultDto<>(null, INVALID_TICKET));
   }
 }

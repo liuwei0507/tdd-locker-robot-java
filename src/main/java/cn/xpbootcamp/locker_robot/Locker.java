@@ -13,19 +13,11 @@ import java.util.Map;
 
 public class Locker {
 
-  private Map<String, Object> storeMap;
+  private Map<Ticket, Object> storeMap;
   private int capacity;
-  private String serialNumber;
 
   public Locker(int capacity) {
     this.capacity = capacity;
-    this.serialNumber = "";
-    this.storeMap = new HashMap<>(capacity);
-  }
-
-  public Locker(int capacity, String serialNumber) {
-    this.capacity = capacity;
-    this.serialNumber = serialNumber;
     this.storeMap = new HashMap<>(capacity);
   }
 
@@ -34,7 +26,7 @@ public class Locker {
     if (ticket == null) {
       return new ResultDto<>(null, LOCKER_FULL);
     }
-    storeMap.put(ticket.getNumber().toString(), bag);
+    storeMap.put(ticket, bag);
     return new ResultDto<>(ticket, STORE_SUCCESS_MESSAGE);
   }
 
@@ -42,36 +34,23 @@ public class Locker {
     if (storeMap.size() == capacity) {
       return null;
     }
-
-    int index = 0;
-    for (int i = 0; i < capacity; i++) {
-      if (storeMap.get(i + "") == null) {
-        index = i;
-        break;
-      }
-    }
-    return new Ticket(this.serialNumber, index);
+    return new Ticket();
   }
 
   public ResultDto<Bag> take(Ticket ticket) {
-    String lockerIndex = ticket.getNumber() + "";
     Bag bag;
-    if (!storeMap.containsKey(lockerIndex)) {
+    if (!storeMap.containsKey(ticket)) {
       return new ResultDto<>(null, INVALID_TICKET);
     }
 
-    bag = (Bag) storeMap.get(lockerIndex);
-    storeMap.remove(lockerIndex);
+    bag = (Bag) storeMap.get(ticket);
+    storeMap.remove(ticket);
 
     return new ResultDto<>(bag, TAKE_SUCCESS_MESSAGE);
   }
 
   public boolean isFull() {
     return storeMap.size() == capacity;
-  }
-
-  public String getSerialNumber() {
-    return serialNumber;
   }
 
   public int getUsedCapacity() {

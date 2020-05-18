@@ -58,8 +58,8 @@ class PrimaryLockerRobotTest {
   void should_return_right_bag_when_take_bag_given_valid_ticket() {
     // Given
     Bag bag = new Bag();
-    Locker firstLocker = new Locker(3, "A1");
-    Locker secondLocker = new Locker(3, "A2");
+    Locker firstLocker = new Locker(3);
+    Locker secondLocker = new Locker(3);
     PrimaryLockerRobot robot = new PrimaryLockerRobot();
     robot.setOrderedLocker(Arrays.asList(firstLocker, secondLocker));
 
@@ -77,8 +77,8 @@ class PrimaryLockerRobotTest {
   void should_return_invalid_ticket_message_when_take_bag_given_invalid_ticket() {
     // Given
     Bag bag = new Bag();
-    Locker firstLocker = new Locker(3, "A1");
-    Locker secondLocker = new Locker(3, "A2");
+    Locker firstLocker = new Locker(3);
+    Locker secondLocker = new Locker(3);
     PrimaryLockerRobot robot = new PrimaryLockerRobot();
     robot.setOrderedLocker(Arrays.asList(firstLocker, secondLocker));
 
@@ -98,8 +98,8 @@ class PrimaryLockerRobotTest {
     // Given
     Bag bag = new Bag();
 
-    Locker firstLocker = new Locker(3, "A1");
-    Locker secondLocker = new Locker(3, "A2");
+    Locker firstLocker = new Locker(3);
+    Locker secondLocker = new Locker(3);
     PrimaryLockerRobot robot = new PrimaryLockerRobot();
     robot.setOrderedLocker(Arrays.asList(firstLocker, secondLocker));
 
@@ -120,8 +120,8 @@ class PrimaryLockerRobotTest {
     // Given
     Bag bag = new Bag();
 
-    Locker firstLocker = new Locker(3, "A1");
-    Locker secondLocker = new Locker(3, "A2");
+    Locker firstLocker = new Locker(3);
+    Locker secondLocker = new Locker(3);
     PrimaryLockerRobot robot = new PrimaryLockerRobot();
     robot.setOrderedLocker(Arrays.asList(firstLocker, secondLocker));
 
