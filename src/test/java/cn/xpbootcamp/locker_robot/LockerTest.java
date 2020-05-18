@@ -17,41 +17,70 @@ class LockerTest {
 
   @Test
   void should_return_ticket_when_store_bag_given_available_space_and_bag() {
+    // Given
     Bag bag = new Bag();
     Locker locker = new Locker(3);
-    ResultDto<Ticket> result = locker.store(bag);
-    assertNotNull(result.getData());
-    assertEquals(result.getMessage(), STORE_SUCCESS_MESSAGE);
+
+    // When
+    ResultDto<Ticket> actualResult = locker.store(bag);
+
+    // Then
+    Ticket actualTicket = actualResult.getData();
+    String actualMessage = actualResult.getMessage();
+
+    assertNotNull(actualTicket);
+    assertEquals(STORE_SUCCESS_MESSAGE, actualMessage);
   }
 
   @Test
   void should_failed_when_store_bag_given_no_space_and_bag() {
+    // Given
     Bag bag = new Bag();
     Locker locker = new Locker(0);
-    ResultDto<Ticket> result = locker.store(bag);
-    assertNull(result.getData());
-    assertEquals(result.getMessage(), LOCKER_FULL);
+
+    // When
+    ResultDto<Ticket> actualResult = locker.store(bag);
+
+    // Then
+    Ticket actualTicket = actualResult.getData();
+    String actualMessage = actualResult.getMessage();
+
+    assertNull(actualTicket);
+    assertEquals(LOCKER_FULL, actualMessage);
   }
 
   @Test
   void should_return_bag_when_take_bag_given_ticket() {
+    // Given
     Bag bag = new Bag();
     Locker locker = new Locker(2);
     ResultDto<Ticket> result = locker.store(bag);
 
-    ResultDto<Bag> takeResult = locker.take(result.getData());
-    assertNotNull(takeResult.getData());
-    assertEquals(takeResult.getData(), bag);
-    assertEquals(takeResult.getMessage(), TAKE_SUCCESS_MESSAGE);
+    // When
+    ResultDto<Bag> actualResult = locker.take(result.getData());
+
+    // Then
+    Bag actualBag = actualResult.getData();
+    String actualMessage = actualResult.getMessage();
+
+    assertEquals(bag, actualBag);
+    assertEquals(TAKE_SUCCESS_MESSAGE, actualMessage);
   }
 
   @Test
   void should_failed_when_take_bag_given_invalid_ticket() {
+    // Given
     Locker locker = new Locker(2);
     Ticket invalidTicket = new Ticket();
 
-    ResultDto<Bag> takeResult = locker.take(invalidTicket);
-    assertNull(takeResult.getData());
-    assertEquals(takeResult.getMessage(), INVALID_TICKET);
+    // When
+    ResultDto<Bag> actualResult = locker.take(invalidTicket);
+
+    // Then
+    Bag actualBag = actualResult.getData();
+    String actualMessage = actualResult.getMessage();
+
+    assertNull(actualBag);
+    assertEquals(INVALID_TICKET, actualMessage);
   }
 }

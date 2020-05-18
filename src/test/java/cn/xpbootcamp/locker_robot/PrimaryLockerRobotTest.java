@@ -26,11 +26,14 @@ class PrimaryLockerRobotTest {
     robot.setOrderedLocker(Arrays.asList(firstLocker, secondLocker));
 
     // When
-    ResultDto<Ticket> actual = robot.store(bag);
+    ResultDto<Ticket> actualResult = robot.store(bag);
 
     // Then
-    assertNotNull(actual.getData());
-    assertEquals(actual.getMessage(), STORE_SUCCESS_MESSAGE);
+    Ticket actualTicket = actualResult.getData();
+    String actualMessage = actualResult.getMessage();
+
+    assertNotNull(actualTicket);
+    assertEquals(STORE_SUCCESS_MESSAGE, actualMessage);
   }
 
   @Test
@@ -47,11 +50,14 @@ class PrimaryLockerRobotTest {
     robot.setOrderedLocker(Arrays.asList(firstLocker, secondLocker));
 
     // When
-    ResultDto<Ticket> actual = robot.store(bag);
+    ResultDto<Ticket> actualResult = robot.store(bag);
 
     // Then
-    assertNull(actual.getData());
-    assertEquals(actual.getMessage(), LOCKER_FULL);
+    Ticket actualTicket = actualResult.getData();
+    String actualMessage = actualResult.getMessage();
+
+    assertNull(actualTicket);
+    assertEquals(LOCKER_FULL, actualMessage);
   }
 
   @Test
@@ -66,11 +72,14 @@ class PrimaryLockerRobotTest {
     ResultDto<Ticket> storeResult = robot.store(bag);
 
     // When
-    ResultDto<Bag> actual = robot.take(storeResult.getData());
+    ResultDto<Bag> actualResult = robot.take(storeResult.getData());
 
     // Then
-    assertEquals(actual.getData(), bag);
-    assertEquals(actual.getMessage(), TAKE_SUCCESS_MESSAGE);
+    Bag actualBag = actualResult.getData();
+    String actualMessage = actualResult.getMessage();
+
+    assertEquals(bag, actualBag);
+    assertEquals(TAKE_SUCCESS_MESSAGE, actualMessage);
   }
 
   @Test
@@ -86,11 +95,14 @@ class PrimaryLockerRobotTest {
     robot.take(storeResult.getData());
 
     // When
-    ResultDto<Bag> actual = robot.take(storeResult.getData());
+    ResultDto<Bag> actualResult = robot.take(storeResult.getData());
 
     // Then
-    assertNull(actual.getData());
-    assertEquals(actual.getMessage(), INVALID_TICKET);
+    Bag actualBag = actualResult.getData();
+    String actualMessage = actualResult.getMessage();
+
+    assertNull(actualBag);
+    assertEquals(INVALID_TICKET, actualMessage);
   }
 
   @Test
@@ -110,11 +122,10 @@ class PrimaryLockerRobotTest {
     ResultDto<Ticket> storeResult = robot.store(bag);
 
     // Then
-    ResultDto<Bag> expectedResult = firstLocker.take(storeResult.getData());
-    Bag expectedBag = expectedResult.getData();
+    ResultDto<Bag> actualResult = firstLocker.take(storeResult.getData());
+    Bag actualBag = actualResult.getData();
 
-    assertNotNull(expectedResult.getData());
-    assertEquals(bag, expectedBag);
+    assertEquals(bag, actualBag);
   }
 
   @Test
@@ -135,10 +146,9 @@ class PrimaryLockerRobotTest {
     ResultDto<Ticket> storeResult = robot.store(bag);
 
     // Then
-    ResultDto<Bag> expectedResult = secondLocker.take(storeResult.getData());
-    Bag expectedBag = expectedResult.getData();
+    ResultDto<Bag> actualResult = secondLocker.take(storeResult.getData());
+    Bag actualBag = actualResult.getData();
 
-    assertNotNull(expectedResult.getData());
-    assertEquals(bag, expectedBag);
+    assertEquals(bag, actualBag);
   }
 }
