@@ -69,7 +69,7 @@ class PrimaryLockerRobotTest {
     ResultDto<Bag> actual = robot.take(storeResult.getData());
 
     // Then
-    assertNotNull(actual.getData());
+    assertEquals(actual.getData(), bag);
     assertEquals(actual.getMessage(), TAKE_SUCCESS_MESSAGE);
   }
 
@@ -97,14 +97,14 @@ class PrimaryLockerRobotTest {
   void should_store_in_first_locker_and_return_ticket_when_store_bag_given_first_locker_available() {
     // Given
     Bag bag = new Bag();
-    Locker firstLocker = new Locker(3, "A1");
-    firstLocker.store(new Bag());
-    firstLocker.store(new Bag());
 
+    Locker firstLocker = new Locker(3, "A1");
     Locker secondLocker = new Locker(3, "A2");
     PrimaryLockerRobot robot = new PrimaryLockerRobot();
     robot.setOrderedLocker(Arrays.asList(firstLocker, secondLocker));
 
+    robot.store(new Bag());
+    robot.store(new Bag());
     int previousUsedCapacity = firstLocker.getUsedCapacity();
 
     // When
@@ -119,15 +119,15 @@ class PrimaryLockerRobotTest {
   void should_store_in_second_locker_and_return_ticket_when_store_bag_given_first_locker_not_available_and_second_locker_available() {
     // Given
     Bag bag = new Bag();
-    Locker firstLocker = new Locker(3, "A1");
-    firstLocker.store(new Bag());
-    firstLocker.store(new Bag());
-    firstLocker.store(new Bag());
 
+    Locker firstLocker = new Locker(3, "A1");
     Locker secondLocker = new Locker(3, "A2");
     PrimaryLockerRobot robot = new PrimaryLockerRobot();
     robot.setOrderedLocker(Arrays.asList(firstLocker, secondLocker));
 
+    robot.store(new Bag());
+    robot.store(new Bag());
+    robot.store(new Bag());
     int previousUsedCapacity = secondLocker.getUsedCapacity();
 
     // When
