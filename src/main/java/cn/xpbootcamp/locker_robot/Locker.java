@@ -16,8 +16,8 @@ public class Locker {
   private Map<Ticket, Object> storeMap;
   private int capacity;
 
-  public int getCapacity() {
-    return capacity;
+  public int getAvailableCapacity() {
+    return capacity - storeMap.size();
   }
 
   public Locker(int capacity) {
