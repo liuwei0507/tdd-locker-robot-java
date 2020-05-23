@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
+import static cn.xpbootcamp.locker_robot.commom.CommonConstant.INVALID_TICKET;
 import static cn.xpbootcamp.locker_robot.commom.CommonConstant.LOCKER_FULL;
 import static cn.xpbootcamp.locker_robot.commom.CommonConstant.STORE_SUCCESS_MESSAGE;
 import static cn.xpbootcamp.locker_robot.commom.CommonConstant.TAKE_SUCCESS_MESSAGE;
@@ -119,6 +120,29 @@ public class SmartLockerRobotTest {
 
         assertEquals(bag, actualBag);
         assertEquals(TAKE_SUCCESS_MESSAGE, actualMessage);
+    }
+
+    @Test
+    void should_return_invalid_ticket_message_when_take_bag_given_invalid_ticket() {
+        // Given
+        Bag bag = new Bag();
+        Locker firstLocker = new Locker(3);
+        Locker secondLocker = new Locker(3);
+        SmartLockerRobot robot = new SmartLockerRobot();
+        robot.setOrderedLocker(Arrays.asList(firstLocker, secondLocker));
+
+        ResultDto<Ticket> storeResult = robot.store(bag);
+        robot.take(storeResult.getData());
+
+        // When
+        ResultDto<Bag> actualResult = robot.take(storeResult.getData());
+
+        // Then
+        Bag actualBag = actualResult.getData();
+        String actualMessage = actualResult.getMessage();
+
+        assertNull(actualBag);
+        assertEquals(INVALID_TICKET, actualMessage);
     }
 
 
