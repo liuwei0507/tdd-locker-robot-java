@@ -21,3 +21,14 @@
 
  - `Given` primary locker robot with more than one locker and available space in first locker `When` store bag `Then` store in first locker successfully
  - `Given` primary locker robot with more than one locker and no space in first locker but available in second locker `When` store bag `Then` store in second locker successfully
+ 
+ 
+ # smart locker robot
+  - `Given` smart locker robot and available space `When` store bag `Then` store successfully and get a ticket
+  - `Given` smart locker robot and no space `When` store bag `Then` get a message that locker is full
+ 
+  - `Given` smart locker robot and lockers with different available space `When` store bag `Then` store in locker with most available capacity successfully
+  - `Given` smart locker robot and lockers with the same available space `When` store bag `Then` store in any of the lockers successfully
+  
+  - `Given` valid ticket `When` take bag `Then` take successfully and get right bag
+  - `Given` invalid ticket `When` take bag `Then` take failed and get a message that ticket is invalid
