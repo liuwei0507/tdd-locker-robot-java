@@ -19,6 +19,10 @@ public class PrimaryLockerRobot {
     this.orderedLocker = orderedLocker;
   }
 
+  public List<Locker> getOrderedLocker() {
+    return orderedLocker;
+  }
+
   public ResultDto<Ticket> store(Bag bag) {
     for (Locker locker : orderedLocker) {
       ResultDto<Ticket> storeResult = locker.store(bag);

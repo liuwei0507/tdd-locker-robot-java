@@ -16,6 +16,10 @@ public class Locker {
   private Map<Ticket, Object> storeMap;
   private int capacity;
 
+  public int getCapacity() {
+    return capacity;
+  }
+
   public Locker(int capacity) {
     this.capacity = capacity;
     this.storeMap = new HashMap<>(capacity);

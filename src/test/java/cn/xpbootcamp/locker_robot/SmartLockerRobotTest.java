@@ -57,4 +57,24 @@ public class SmartLockerRobotTest {
         assertNull(actualTicket);
         assertEquals(LOCKER_FULL, actualMessage);
     }
+
+    @Test
+    void should_store_in_locker_with_most_available_capacity_when_store_bag_given_smart_locker_robot_and_lockers_with_different_available_space() {
+        // given
+        Bag bag = new Bag();
+        Locker firstLocker = new Locker(3);
+        Locker secondLocker = new Locker(5);
+        Locker thirdLocker = new Locker(4);
+        SmartLockerRobot robot = new SmartLockerRobot();
+        robot.setOrderedLocker(Arrays.asList(firstLocker, secondLocker, thirdLocker));
+
+        // when
+        ResultDto<Ticket> storeResult = robot.store(bag);
+
+        // then
+        ResultDto<Bag> actualResult = secondLocker.take(storeResult.getData());
+        Bag actualBag = actualResult.getData();
+
+        assertEquals(actualBag, bag);
+    }
 }
