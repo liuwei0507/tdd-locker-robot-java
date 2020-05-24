@@ -147,17 +147,15 @@ public class SmartLockerRobotTest {
     @Test
     void should_return_invalid_ticket_message_when_take_bag_given_invalid_ticket() {
         // Given
-        Bag bag = new Bag();
         Locker firstLocker = new Locker(3);
         Locker secondLocker = new Locker(3);
         SmartLockerRobot robot = new SmartLockerRobot();
         robot.setOrderedLocker(Arrays.asList(firstLocker, secondLocker));
 
-        ResultDto<Ticket> storeResult = robot.store(bag);
-        robot.take(storeResult.getData());
+        Ticket invalidTicket = new Ticket();
 
         // When
-        ResultDto<Bag> actualResult = robot.take(storeResult.getData());
+        ResultDto<Bag> actualResult = robot.take(invalidTicket);
 
         // Then
         Bag actualBag = actualResult.getData();
