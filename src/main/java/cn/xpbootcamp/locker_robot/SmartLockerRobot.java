@@ -8,7 +8,7 @@ import cn.xpbootcamp.locker_robot.model.Ticket;
 import java.util.Comparator;
 import java.util.Optional;
 
-public class SmartLockerRobot extends PrimaryLockerRobot{
+public class SmartLockerRobot extends LockerRobot {
     @Override
     public ResultDto<Ticket> store(Bag bag) {
         Optional<Locker> optionalLocker = getOrderedLocker().stream()
