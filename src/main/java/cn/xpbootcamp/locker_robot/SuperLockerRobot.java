@@ -14,12 +14,16 @@ public class SuperLockerRobot extends LockerRobot {
   public ResultDto<Ticket> store(Bag bag) {
     Optional<Locker> optionalLocker = getOrderedLocker().stream()
         .filter(locker -> locker.getAvailableCapacity() > 0)
-        .max(comparing(locker -> locker.getAvailableCapacity() * 1.0 / locker.getCapacity()));
+        .max(comparing(this::calculateVacancyRatio));
 
     if (optionalLocker.isPresent()) {
       return optionalLocker.get().store(bag);
     }
 
     return new ResultDto<>(null, LOCKER_FULL);
+  }
+
+  private double calculateVacancyRatio(Locker locker) {
+    return locker.getAvailableCapacity() * 1.0 / locker.getCapacity();
   }
 }
