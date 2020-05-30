@@ -66,6 +66,31 @@ public class SuperLockerRobotTest {
 
     Locker firstLocker = new Locker(5);
     Locker secondLocker = new Locker(3);
+
+    SuperLockerRobot robot = new SuperLockerRobot();
+    robot.setOrderedLocker(Arrays.asList(firstLocker, secondLocker));
+
+    robot.store(new Bag());
+    robot.store(new Bag());
+
+    // When
+    ResultDto<Ticket> storeResult = robot.store(bag);
+
+    // Then
+    ResultDto<Bag> actualResult = firstLocker.take(storeResult.getData());
+    Bag actualBag = actualResult.getData();
+
+    assertEquals(bag, actualBag);
+  }
+
+  @Test
+  void should_store_in_any_locker_and_return_ticket_when_store_bag_given_two_lockers_with_same_vacancy_ratio() {
+    // Given
+    Bag bag = new Bag();
+
+    Locker firstLocker = new Locker(5);
+    Locker secondLocker = new Locker(5);
+
     SuperLockerRobot robot = new SuperLockerRobot();
     robot.setOrderedLocker(Arrays.asList(firstLocker, secondLocker));
 
