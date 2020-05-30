@@ -52,4 +52,9 @@ public class Locker {
 
     return new ResultDto<>(bag, TAKE_SUCCESS_MESSAGE);
   }
+
+  public int getCapacity() {
+    return capacity;
+  }
+
 }

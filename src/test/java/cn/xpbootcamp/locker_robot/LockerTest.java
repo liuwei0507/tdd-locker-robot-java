@@ -83,4 +83,17 @@ class LockerTest {
     assertNull(actualBag);
     assertEquals(INVALID_TICKET, actualMessage);
   }
+
+  @Test
+  void should_return_right_capacity_when_get_capacity_given_locker_with_capacity() {
+    // Given
+    int capacity = 2;
+    Locker locker = new Locker(capacity);
+
+    // When
+    int actualCapacity = locker.getCapacity();
+
+    // Then
+    assertEquals(capacity, actualCapacity);
+  }
 }
