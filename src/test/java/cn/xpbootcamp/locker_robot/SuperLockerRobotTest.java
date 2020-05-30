@@ -2,6 +2,7 @@ package cn.xpbootcamp.locker_robot;
 
 import static cn.xpbootcamp.locker_robot.commom.CommonConstant.LOCKER_FULL;
 import static cn.xpbootcamp.locker_robot.commom.CommonConstant.STORE_SUCCESS_MESSAGE;
+import static cn.xpbootcamp.locker_robot.commom.CommonConstant.TAKE_SUCCESS_MESSAGE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -105,5 +106,28 @@ public class SuperLockerRobotTest {
     Bag actualBag = actualResult.getData();
 
     assertEquals(bag, actualBag);
+  }
+
+  @Test
+  void should_return_right_bag_when_take_bag_given_super_robot_and_valid_ticket() {
+    // Given
+    Bag bag = new Bag();
+    Locker firstLocker = new Locker(3);
+    Locker secondLocker = new Locker(3);
+
+    SuperLockerRobot robot = new SuperLockerRobot();
+    robot.setOrderedLocker(Arrays.asList(firstLocker, secondLocker));
+
+    ResultDto<Ticket> storeResult = robot.store(bag);
+
+    // When
+    ResultDto<Bag> actualResult = robot.take(storeResult.getData());
+
+    // Then
+    Bag actualBag = actualResult.getData();
+    String actualMessage = actualResult.getMessage();
+
+    assertEquals(bag, actualBag);
+    assertEquals(TAKE_SUCCESS_MESSAGE, actualMessage);
   }
 }
