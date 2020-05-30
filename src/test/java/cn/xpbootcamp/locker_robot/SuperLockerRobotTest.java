@@ -155,4 +155,28 @@ public class SuperLockerRobotTest {
     assertNull(actualBag);
     assertEquals(INVALID_TICKET, actualMessage);
   }
+
+  @Test
+  void should_return_invalid_ticket_message_when_take_bag_given_super_robot_and_used_ticket() {
+    // Given
+    Bag bag = new Bag();
+    Locker firstLocker = new Locker(3);
+    Locker secondLocker = new Locker(3);
+
+    SuperLockerRobot robot = new SuperLockerRobot();
+    robot.setOrderedLocker(Arrays.asList(firstLocker, secondLocker));
+
+    ResultDto<Ticket> storeResult = robot.store(bag);
+    robot.take(storeResult.getData());
+
+    // When
+    ResultDto<Bag> actualResult = robot.take(storeResult.getData());
+
+    // Then
+    Bag actualBag = actualResult.getData();
+    String actualMessage = actualResult.getMessage();
+
+    assertNull(actualBag);
+    assertEquals(INVALID_TICKET, actualMessage);
+  }
 }
