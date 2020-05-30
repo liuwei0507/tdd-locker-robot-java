@@ -1,8 +1,10 @@
 package cn.xpbootcamp.locker_robot;
 
+import static cn.xpbootcamp.locker_robot.commom.CommonConstant.LOCKER_FULL;
 import static cn.xpbootcamp.locker_robot.commom.CommonConstant.STORE_SUCCESS_MESSAGE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import cn.xpbootcamp.locker_robot.model.Bag;
 import cn.xpbootcamp.locker_robot.model.ResultDto;
@@ -30,5 +32,30 @@ public class SuperLockerRobotTest {
 
     assertNotNull(actualTicket);
     assertEquals(STORE_SUCCESS_MESSAGE, actualMessage);
+  }
+
+  @Test
+  void should_return_locker_is_full_message_when_store_bag_given_super_locker_robot_and_no_space() {
+    // Given
+    Bag bag = new Bag();
+
+    Locker firstLocker = new Locker(1);
+    Locker secondLocker = new Locker(1);
+
+    SuperLockerRobot robot = new SuperLockerRobot();
+    robot.setOrderedLocker(Arrays.asList(firstLocker, secondLocker));
+
+    robot.store(bag);
+    robot.store(bag);
+
+    // When
+    ResultDto<Ticket> actualResult = robot.store(bag);
+
+    // Then
+    Ticket actualTicket = actualResult.getData();
+    String actualMessage = actualResult.getMessage();
+
+    assertNull(actualTicket);
+    assertEquals(LOCKER_FULL, actualMessage);
   }
 }
