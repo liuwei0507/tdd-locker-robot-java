@@ -32,3 +32,17 @@
   
   - `Given` valid ticket `When` take bag `Then` take successfully and get right bag
   - `Given` invalid ticket `When` take bag `Then` take failed and get a message that ticket is invalid
+
+
+ # super locker robot
+  - `Given` super locker robot and available space `When` store bag `Then` store successfully and get a ticket
+  - `Given` super locker robot and no space `When` store bag `Then` get a message that locker is full
+ 
+  - `Given` super locker robot and two lockers with available space and different vacancy ratio `When` store bag `Then` store in locker with max vacancy ratio successfully
+  - `Given` super locker robot and two lockers with available space and same vacancy ratio `When` store bag `Then` store in any of the lockers successfully
+  
+  - `Given` valid ticket `When` take bag `Then` take successfully and get right bag
+  - `Given` invalid ticket `When` take bag `Then` take failed and get a message that ticket is invalid
+    - `Given` fake ticket `When` take bag `Then` take failed and get a message that ticket is invalid
+    - `Given` used ticket `When` take bag `Then` take failed and get a message that ticket is invalid
+
