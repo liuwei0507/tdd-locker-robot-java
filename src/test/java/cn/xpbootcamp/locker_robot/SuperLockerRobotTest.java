@@ -42,13 +42,12 @@ public class SuperLockerRobotTest {
     Bag bag = new Bag();
 
     Locker firstLocker = new Locker(1);
+    firstLocker.store(new Bag());
     Locker secondLocker = new Locker(1);
+    secondLocker.store(new Bag());
 
     SuperLockerRobot robot = new SuperLockerRobot();
     robot.setOrderedLocker(Arrays.asList(firstLocker, secondLocker));
-
-    robot.store(bag);
-    robot.store(bag);
 
     // When
     ResultDto<Ticket> actualResult = robot.store(bag);
@@ -67,13 +66,12 @@ public class SuperLockerRobotTest {
     Bag bag = new Bag();
 
     Locker firstLocker = new Locker(5);
+    firstLocker.store(new Bag());
     Locker secondLocker = new Locker(3);
+    secondLocker.store(new Bag());
 
     SuperLockerRobot robot = new SuperLockerRobot();
     robot.setOrderedLocker(Arrays.asList(firstLocker, secondLocker));
-
-    robot.store(new Bag());
-    robot.store(new Bag());
 
     // When
     ResultDto<Ticket> storeResult = robot.store(bag);
@@ -91,13 +89,12 @@ public class SuperLockerRobotTest {
     Bag bag = new Bag();
 
     Locker firstLocker = new Locker(5);
+    firstLocker.store(new Bag());
     Locker secondLocker = new Locker(5);
+    secondLocker.store(new Bag());
 
     SuperLockerRobot robot = new SuperLockerRobot();
     robot.setOrderedLocker(Arrays.asList(firstLocker, secondLocker));
-
-    robot.store(new Bag());
-    robot.store(new Bag());
 
     // When
     ResultDto<Ticket> storeResult = robot.store(bag);
